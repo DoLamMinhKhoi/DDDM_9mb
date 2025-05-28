@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Hệ thống hỗ trợ ra quyết định - 9th Monthly B2B</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin-left: 280px;
+      padding: 20px;
+    }
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 240px;
+      height: 100%;
+      background-color: #f4f4f4;
+      overflow-y: auto;
+      padding: 20px 10px 20px 20px;
+      border-right: 1px solid #ccc;
+    }
+    .sidebar h3 {
+      margin-top: 0;
+    }
+    .sidebar a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+      margin: 4px 0;
+      padding-left: 10px;
+    }
+    .sidebar a:hover {
+        color: #007BFF;
+    }
+    h1 {
+      text-align: center;
+    }
+    img.logo {
+      display: block;
+      margin: 0 auto;
+      height: 80px;
+    }
+    h2 {
+      margin-top: 50px;
+    }
+    code {
+        border-radius: 4px;
+        padding: 2px 6px;
+        font-family: Consolas, monospace;
+        font-size: 90%;
+        color: #d63384;
+    }
+    pre {
+        border-radius: 4px;
+        padding: 10px;
+        font-family: Consolas, monospace;
+        font-size: 90%;
+        overflow-x: auto;
+        color: #d63384;
+        margin-bottom: 16px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 15px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        thead th {
+        background-color: #f4f4f4;
+        color: #333;
+        text-align: left;
+        padding: 12px 16px;
+        border-bottom: 2px solid #ccc;
+        }
+
+        tbody td {
+        padding: 10px 16px;
+        border-bottom: 1px solid #e0e0e0;
+        }
+
+        tbody tr:nth-child(even) {
+        background-color: #fafafa;
+        }
+
+        tbody tr:hover {
+        background-color: #f1f7ff;
+        }
+  </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h3>Mục lục</h3>
+        <a href="#gioithieu">1. Giới thiệu</a>
+        <a href="#gioithieu-he-thong">&emsp;1.1. Giới thiệu hệ thống</a>
+        <a href="#capnhat">&emsp;1.2. Cập nhật phiên bản</a>
+        <a href="#yeucau">&emsp;1.3. Yêu cầu hệ thống</a>
+      
+        <a href="#database">2. Database</a>
+        <a href="#gioithieu-db">&emsp;2.1. Giới thiệu database</a>
+        <a href="#import-db">&emsp;2.2. Import database vào SSMS</a>
+        <a href="#chitiet-db">&emsp;2.3. Chi tiết database</a>
+      
+        <a href="#powerbi">3. Hướng dẫn sử dụng PowerBI</a>
+        <a href="#import-sql">&emsp;3.1. Import dữ liệu từ SQL</a>
+        <a href="#giaodien">&emsp;3.2. Giới thiệu giao diện PowerBI</a>
+        <a href="#report-view">&emsp;&emsp;3.2.1. Report view</a>
+        <a href="#table-view">&emsp;&emsp;3.2.2. Table view</a>
+        <a href="#model-view">&emsp;&emsp;3.2.3. Model view</a>
+      
+        <a href="#themdt">&emsp;3.3. Thêm các đối tượng vào PowerBI</a>
+        <a href="#text">&emsp;&emsp;Văn bản</a>
+        <a href="#filter">&emsp;&emsp;Bộ lọc</a>
+        <a href="#table">&emsp;&emsp;Bảng</a>
+        <a href="#KPI">&emsp;&emsp;KPI</a>
+        <a href="#chart">&emsp;&emsp;Biểu đồ</a>
+        <a href="#others">&emsp;&emsp;Các tính năng khác</a>
+      
+        <a href="#dax">3.4. Làm quen với lệnh truy vấn DAX</a>
+        <a href="#export">3.5. Export dashboard từ PowerBI</a>
+    </div>      
+
+  <h1>Hệ thống hỗ trợ ra quyết định của nền tảng 9th Monthly B2B</h1>
+  <img class="logo" src="https://meu-solutions.com/wp-content/uploads/2024/11/logo-meu-solutions-new-no-background.png" alt="MeU Logo">
+
+  <h2 id="gioithieu">1. Giới thiệu</h2>
+  <h3 id="gioithieu-he-thong">1.1. Giới thiệu hệ thống</h3>
+    <p>
+    <strong>9mb.vn</strong> là nền tảng trực tuyến của chương trình <strong>9th Monthly B2B</strong>, một sáng kiến do Tạp chí Doanh Nhân Sài Gòn phối hợp cùng MeU Solutions phát triển.
+    Đây là nơi các doanh nghiệp, hiệp hội và câu lạc bộ doanh nhân hội tụ vào ngày 9 hàng tháng để kết nối, chia sẻ và mở rộng cơ hội hợp tác kinh doanh.
+    </p>
+
+    <p><strong>Đối tượng sử dụng hệ thống dashboard:</strong></p>
+    <ul>
+    <li><strong>Build dashboard:</strong> Team Data Analytics.</li>
+    <li><strong>Xem dashboard để đưa ra quyết định:</strong> Dựa theo Org Chart.</li>
+    </ul>
+
+    <p><em>Sơ đồ minh họa:</em></p>
+    <img src=".\public\images\OrgChart.png" alt="Sơ đồ tổ chức" style="max-width:100%; height:auto; border: 1px solid #ccc; padding: 5px;">
+
+  <h3 id="capnhat">1.2. Cập nhật phiên bản</h3>
+  <p>...</p>
+
+  <h3 id="yeucau">1.3. Yêu cầu hệ thống</h3>
+  <p>Sql Server Management Studio.</p>
+  <p>PowerBI</p>
+
+  <h2 id="database">2. Database</h2>
+  <h3 id="gioithieu-db">2.1. Giới thiệu database</h3>
+    <p>
+    Database được tự thiết kế với các đối tượng chính:
+    </p>
+    <ul>
+    <li><strong>Doanh nghiệp, tài khoản doanh nghiệp,</strong> người truy cập trang web.</li>
+    <li>
+        <strong>Các hoạt động của tài khoản</strong> bên trong doanh nghiệp:
+        Đăng ký membership, đăng quảng cáo, thực hiện giao dịch, tìm kiếm đối tác, đăng ký tham gia sự kiện.
+    </li>
+    <li>
+        <strong>Thu thập dữ liệu</strong> về trang web trên các nền tảng mạng xã hội
+        (<em>Facebook, LinkedIn, Zalo, TikTok,…</em>), Gmail, Google.
+    </li>
+    </ul>
+
+  <h3 id="import-db">2.2. Import database vào SSMS</h3>
+    <ul>
+    <li>
+        <a href="https://drive.google.com/file/d/1YCylikk9iQw3ymGEYKyM51Mh2XRxCogQ/view?usp=sharing" target="_blank">
+        Lệnh SQL tạo bảng
+        </a>
+    </li>
+    <li>
+        <a href="https://drive.google.com/file/d/1A7sNY2S2TjMtcq88-IUXnY5mD_ZJy-b0/view?usp=sharing" target="_blank">
+        Lệnh SQL insert data
+        </a>
+    </li>
+    <li>
+        <a href="https://drive.google.com/file/d/1iMBLJLbYH68Ia5PZCJllIF0L7ydsNwC-/view?usp=sharing" target="_blank">
+        Lệnh SQL để xóa bảng khi cần
+        </a> (Execute 2 lần để xóa hết bảng)
+    </li>
+    </ul>
+
+    <h3 id="chitiet-db">2.3. Chi tiết database</h3>
+    <p>Dưới đây là chi tiết các bảng trong cơ sở dữ liệu:</p>
+    
+    <h4>Hội doanh nghiệp - BusinessAssociation</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>AssociationTIN</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Mã số thuế của hội doanh nghiệp (Tax Identification Number)</td>
+        </tr>
+        <tr>
+          <td><strong>AssociationName</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Tên hội doanh nghiệp</td>
+        </tr>
+        <tr>
+          <td><strong>AssociationLogo</strong></td>
+          <td>Image</td>
+          <td>No</td>
+          <td>Logo hội doanh nghiệp</td>
+        </tr>
+        <tr>
+          <td><strong>AssociationCity</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Thành phố</td>
+        </tr>
+        <tr>
+          <td><strong>AssociationCountry</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Quốc gia</td>
+        </tr>
+        <tr>
+          <td><strong>AssociationZIP</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>ZIP Code quốc gia</td>
+        </tr>
+        <tr>
+          <td><strong>AssociationWebsite</strong></td>
+          <td>VarChar</td>
+          <td>Yes</td>
+          <td>Website của hội doanh nghiệp</td>
+        </tr>
+        <tr>
+          <td><strong>AssociationEmail</strong></td>
+          <td>VarChar</td>
+          <td>Yes</td>
+          <td>Email của hội doanh nghiệp</td>
+        </tr>
+        <tr>
+          <td><strong>AssociationInfo</strong></td>
+          <td>NVarChar</td>
+          <td>Yes</td>
+          <td>Thông tin về hội doanh nghiệp (tăng giới hạn nếu không đủ đáp ứng thông tin của hội doanh nghiệp)</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Doanh nghiệp - Business</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>BusinessTIN</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Mã số thuế của doanh nghiệp (Tax Identification Number)</td>
+        </tr>
+        <tr>
+          <td><strong>BusinessName</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Tên doanh nghiệp</td>
+        </tr>
+        <tr>
+          <td><strong>BusinessType</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Loại hình doanh nghiệp</td>
+        </tr>
+        <tr>
+          <td><strong>BusinessLogo</strong></td>
+          <td>Image</td>
+          <td>No</td>
+          <td>Logo doanh nghiệp</td>
+        </tr>
+        <tr>
+          <td><strong>BusinessPhone</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Số điện thoại</td>
+        </tr>
+        <tr>
+          <td><strong>BusinessCity</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Thành phố</td>
+        </tr>
+        <tr>
+          <td><strong>BusinessCountry</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Quốc gia</td>
+        </tr>
+        <tr>
+          <td><strong>BusinessZIP</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>ZIP Code quốc gia</td>
+        </tr>
+        <tr>
+          <td><strong>BusinessNature</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Bản chất kinh doanh</td>
+        </tr>
+        <tr>
+          <td><strong>BusinessWebsite</strong></td>
+          <td>VarChar</td>
+          <td>Yes</td>
+          <td>Website của doanh nghiệp</td>
+        </tr>
+        <tr>
+          <td><strong>BusinessEmail</strong></td>
+          <td>VarChar</td>
+          <td>Yes</td>
+          <td>Email của doanh nghiệp</td>
+        </tr>
+        <tr>
+          <td><strong>BusinessInfo</strong></td>
+          <td>NVarChar</td>
+          <td>Yes</td>
+          <td>Thông tin về doanh nghiệp (tăng giới hạn nếu không đủ đáp ứng thông tin của doanh nghiệp)</td>
+        </tr>
+        <tr>
+          <td><strong>BusinessStrength</strong></td>
+          <td>NVarChar</td>
+          <td>Yes</td>
+          <td>Điểm mạnh của doanh nghiệp (quy mô, chứng chỉ, bằng cấp nhân viên, đối tượng khách hàng, …)</td>
+        </tr>
+        <tr>
+          <td><strong>AssociationID</strong></td>
+          <td>VarChar</td>
+          <td>Yes</td>
+          <td>Mã số thuế hội doanh nghiệp (FK: BusinessAssociation.AssociationTIN)</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Lĩnh vực kinh doanh - Industries</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>IndustryID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Mã ID lĩnh vực kinh doanh (tạo tự động)</td>
+        </tr>
+        <tr>
+          <td><strong>IndustryName</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Tên lĩnh vực kinh doanh</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Doanh nghiệp kinh doanh theo lĩnh vực - Business_Industries</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>BusinessTIN</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Mã số thuế doanh nghiệp (FK: Business.BusinessTIN)</td>
+        </tr>
+        <tr>
+          <td><strong>IndustryID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Mã ID lĩnh vực kinh doanh (FK: Industries.IndustryID)</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Người truy cập tài khoản - Website Visitor</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>VisitorID</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>ID người truy cập (lấy từ cookie)</td>
+        </tr>
+        <tr>
+          <td><strong>AccountID</strong></td>
+          <td>Int</td>
+          <td>Yes</td>
+          <td>Mã ID tài khoản (FK: Account.AccountID)</td>
+        </tr>
+        <tr>
+          <td><strong>VisitorIPAdress</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>IP máy truy cập</td>
+        </tr>
+        <tr>
+          <td><strong>VisitorDeviceInfo</strong></td>
+          <td>VarChar</td>
+          <td>Yes</td>
+          <td>Thông tin thiết bị truy cập</td>
+        </tr>
+        <tr>
+          <td><strong>VisitorCountry</strong></td>
+          <td>VarChar</td>
+          <td>Yes</td>
+          <td>Quốc gia thiết bị truy cập</td>
+        </tr>
+        <tr>
+          <td><strong>ViitorCity</strong></td>
+          <td>NVarChar</td>
+          <td>Yes</td>
+          <td>Thành phố thiết bị truy cập</td>
+        </tr>
+        <tr>
+          <td><strong>VisitorRegion</strong></td>
+          <td>NVarChar</td>
+          <td>Yes</td>
+          <td>Bang quốc gia truy cập</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Phiên người truy cập tài khoản - Visitor Session</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>SessionID</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>ID phiên truy cập (lấy từ cookie)</td>
+        </tr>
+        <tr>
+          <td><strong>VisitorID</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>ID người truy cập (FK: WebsiteVisitor.VisitorID)</td>
+        </tr>
+        <tr>
+          <td><strong>SessionAccessTimestamp</strong></td>
+          <td>Timestamp</td>
+          <td>No</td>
+          <td>Thời gian bắt đầu phiên truy cập</td>
+        </tr>
+        <tr>
+          <td><strong>SessionQuitTimestamp</strong></td>
+          <td>Timestamp</td>
+          <td>No</td>
+          <td>Thời gian kết thúc phiên truy cập</td>
+        </tr>
+        <tr>
+          <td><strong>SessionIsClosedSearch</strong></td>
+          <td>Bit</td>
+          <td>No</td>
+          <td>Phiên người dùng có đóng cửa số tìm kiếm không (0: Không, 1: Có)</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Tài khoản người dùng - Account</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>AccountID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Mã ID tài khoản (tạo tự động)</td>
+        </tr>
+        <tr>
+          <td><strong>BusinessTIN</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Mã số thuế doanh nghiệp (FK: Business.BusinessTIN)</td>
+        </tr>
+        <tr>
+          <td><strong>AccountSignInDate</strong></td>
+          <td>DateTime</td>
+          <td>No</td>
+          <td>Ngày đăng ký tài khoản.</td>
+        </tr>
+        <tr>
+          <td><strong>AccountAcceptDate</strong></td>
+          <td>DateTime</td>
+          <td>Yes</td>
+          <td>Ngày duyệt tài khoản</td>
+        </tr>
+        <tr>
+          <td><strong>AccountStatus</strong></td>
+          <td>Bit</td>
+          <td>No</td>
+          <td>Trạng thái tài khoản (đang hoạt động hay không)</td>
+        </tr>
+        <tr>
+          <td><strong>AccountRole</strong></td>
+          <td>Bit</td>
+          <td>No</td>
+          <td>Vai trò tài khoản (0: User, 1: Admin)</td>
+        </tr>
+        <tr>
+          <td><strong>AccountStatus</strong></td>
+          <td>VarChar</td>
+          <td>Yes</td>
+          <td>Trạng thái tài khoản (chờ hội doanh nghiệp duyệt, chờ duyêt, đã duyệt, từ chối).</td>
+        </tr>
+        <tr>
+          <td><strong>AccountRefSource</strong></td>
+          <td>VarChar</td>
+          <td>Yes</td>
+          <td>Nguồn giới thiệu (đối tác, link gốc, sự kiện, …)</td>
+        </tr>
+        <tr>
+          <td><strong>BusinessIntroduceTIN</strong></td>
+          <td>NVarChar</td>
+          <td>Yes</td>
+          <td>Mã số thuế doanh nghiệp giới thiệu (FK: Business.BusinessTIN)</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>AccountLog</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>AccountLogID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Mã ID log tài khoản (tạo tự động)</td>
+        </tr>
+        <tr>
+          <td><strong>AccountID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Mã ID tài khoản (FK: Account.AccountID)</td>
+        </tr>
+        <tr>
+          <td><strong>AccountStatus</strong></td>
+          <td>Bit</td>
+          <td>No</td>
+          <td>Trạng thái tài khoản (0: logout, 1: login)</td>
+        </tr>
+        <tr>
+          <td><strong>AccountLogTimestamp</strong></td>
+          <td>Timestamp</td>
+          <td>No</td>
+          <td>Thời điểm thực hiện việc login/logout.</td>
+        </tr>
+        <tr>
+          <td><strong>AccountAccessChannel</strong></td>
+          <td>VarChar</td>
+          <td>Yes</td>
+          <td>Nguồn truy cập website.</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Đánh giá ứng dụng - Account Rating</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>RatingID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Mã ID đánh giá (tạo tự động)</td>
+        </tr>
+        <tr>
+          <td><strong>AccountID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Mã ID tài khoản (FK: Account.AccountID)</td>
+        </tr>
+        <tr>
+          <td><strong>Rating</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Đánh giá (1-5)</td>
+        </tr>
+        <tr>
+          <td><strong>RatingComment</strong></td>
+          <td>NVarChar</td>
+          <td>Yes</td>
+          <td>Bình luận về ứng dụng</td>
+        </tr>
+        <tr>
+          <td><strong>RatingDatetime</strong></td>
+          <td>DateTime</td>
+          <td>No</td>
+          <td>Ngày đánh giá</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Hóa đơn - Invoice</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>InvoiceID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>ID hóa đơn (tạo tự động)</td>
+        </tr>
+        <tr>
+          <td><strong>AccountID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Mã ID tài khoản (FK: Account.AccountID)</td>
+        </tr>
+        <tr>
+          <td><strong>InvoiceType</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Khoản trả của hóa đơn (membership, ads, giao dịch, …)</td>
+        </tr>
+        <tr>
+          <td><strong>MembershipID</strong></td>
+          <td>Int</td>
+          <td>Yes</td>
+          <td>FK: Membership.MembershipID (nếu InvoiceType &lt;&gt; “Membership”, MembershipID = NULL)</td>
+        </tr>
+        <tr>
+          <td><strong>AdsID</strong></td>
+          <td>Int</td>
+          <td>Yes</td>
+          <td>FK: AdsAccount.AccountID ((nếu InvoiceType &lt;&gt; “Ads”, AdsID = NULL)</td>
+        </tr>
+        <tr>
+          <td><strong>TransactionID</strong></td>
+          <td>Int</td>
+          <td>Yes</td>
+          <td>FK: TransactionAccount.TransactionID (nếu InvoiceType &lt;&gt; “Transaction”, TransactionID = NULL)</td>
+        </tr>
+        <tr>
+          <td><strong>InvoiceCreateDatetime</strong></td>
+          <td>DateTime</td>
+          <td>No</td>
+          <td>Ngày tạo hóa đơn.</td>
+        </tr>
+        <tr>
+          <td><strong>InvoicePrice</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Giá trị hóa đơn</td>
+        </tr>
+        <tr>
+          <td><strong>InvoiceDiscount</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Giảm giá hóa đơn</td>
+        </tr>
+        <tr>
+          <td><strong>InvoiceTax</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Thuế hóa đơn</td>
+        </tr>
+        <tr>
+          <td><strong>InvoiceRecieved</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Sô tiền đã trả</td>
+        </tr>
+        <tr>
+          <td><strong>InvoicePaidDatetime</strong></td>
+          <td>DateTime</td>
+          <td>Yes</td>
+          <td>Ngày trả tiền</td>
+        </tr>
+        <tr>
+          <td><strong>InvoicePostpaidDays</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Số ngày trả sau</td>
+        </tr>
+        <tr>
+          <td><strong>InvoicePaymentStatus</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Tình trạng hóa đơn (paid, unpaid, refund)</td>
+        </tr>
+        <tr>
+          <td><strong>InvoicePaymentMethod</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Hình thức trả tiền</td>
+        </tr>
+        <tr>
+          <td><strong>InvoiceRefundValue</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Giá trị hoàn trả</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Membership account</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>MembershipID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>ID membership (tạo tự động)</td>
+        </tr>
+        <tr>
+          <td><strong>AccountID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Mã ID tài khoản (FK: Account.AccountID)</td>
+        </tr>
+        <tr>
+          <td><strong>MembershupStatu</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Trạng thái membership (free, basic, premium, enterprise)</td>
+        </tr>
+        <tr>
+          <td><strong>MembershipRegDate</strong></td>
+          <td>DateTime</td>
+          <td>Yes</td>
+          <td>Ngày đăng ký membership</td>
+        </tr>
+        <tr>
+          <td><strong>MembershipStartDate</strong></td>
+          <td>DateTime</td>
+          <td>Yes</td>
+          <td>Ngày bắt đầu kích hoạt membership</td>
+        </tr>
+        <tr>
+          <td><strong>MembershipEndDate</strong></td>
+          <td>DateTime</td>
+          <td>Yes</td>
+          <td>Ngày kết thúc membership</td>
+        </tr>
+        <tr>
+          <td><strong>MembershipIsActive</strong></td>
+          <td>Bit</td>
+          <td>No</td>
+          <td>Gói membership có đang kích hoạt không</td>
+        </tr>
+        <tr>
+          <td><strong>MembershipCancelledReason</strong></td>
+          <td>NVarChar</td>
+          <td>Yes</td>
+          <td>Lý do hủy gói membership.</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Membership log</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>LogID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>ID log (tạo tự động)</td>
+        </tr>
+        <tr>
+          <td><strong>AccountID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Mã ID tài khoản (FK: Account.AccountID)</td>
+        </tr>
+        <tr>
+          <td><strong>LogType</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Đăng ký hay hủy gói membership</td>
+        </tr>
+        <tr>
+          <td><strong>MembershupStatu</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Trạng thái membership (free, basic, premium, enterprise)</td>
+        </tr>
+        <tr>
+          <td><strong>LogDate</strong></td>
+          <td>DateTime</td>
+          <td>No</td>
+          <td>Ngày tạo log</td>
+        </tr>
+        <tr>
+          <td><strong>LogNote</strong></td>
+          <td>NVarChar</td>
+          <td>Yes</td>
+          <td>Ghi chú log</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Tài khoản quảng cáo cơ hội - Ads account</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>AdsID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>ID quảng cáo (tạo tự động)</td>
+        </tr>
+        <tr>
+          <td><strong>AccountID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Mã ID tài khoản (FK: Account.AccountID)</td>
+        </tr>
+        <tr>
+          <td><strong>AdsType</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Mức độ quảng cáo (diamond, gold, bronze, silver)</td>
+        </tr>
+        <tr>
+          <td><strong>IndustryID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Lĩnh vực doanh nghiệp (FK: Industries.IndustryID)</td>
+        </tr>
+        <tr>
+          <td><strong>AdsDatetime</strong></td>
+          <td>DateTime</td>
+          <td>No</td>
+          <td>Ngày đăng quảng cáo</td>
+        </tr>
+        <tr>
+          <td><strong>AdsIsActive</strong></td>
+          <td>Bit</td>
+          <td>No</td>
+          <td>Trạng thái quảng cáo (đang hoạt động)</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Tài khoản giao dịch - Transaction Account</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>TransactionID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>ID giao dịch (tạo tự động)</td>
+        </tr>
+        <tr>
+          <td><strong>AccountSellID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Mã ID tài khoản mua (FK: Account.AccountID)</td>
+        </tr>
+        <tr>
+          <td><strong>AccountBuyID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Mã ID tài khoản bán (FK: Account.AccountID)</td>
+        </tr>
+        <tr>
+          <td><strong>IndustryID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Lĩnh vực doanh nghiệp (FK: Industries.IndustryID)</td>
+        </tr>
+        <tr>
+          <td><strong>TransactionDatetime</strong></td>
+          <td>DateTime</td>
+          <td>No</td>
+          <td>Ngày thực hiện giao dịch</td>
+        </tr>
+        <tr>
+          <td><strong>TransactionValue</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Giá trị giao dịch (không phải giá trị MeU nhận)</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Tài khoản thực hiện tìm kiếm đối tác - PartnerSearch</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>SearchID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>ID tìm kiếm (tạo tự động)</td>
+        </tr>
+        <tr>
+          <td><strong>VisitorID</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Mã người truy cập (FK: Visitors.VisitorID)</td>
+        </tr>
+        <tr>
+          <td><strong>AccountID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Mã ID tài khoản (FK: Account.AccountID)</td>
+        </tr>
+        <tr>
+          <td><strong>SearchTimestamp</strong></td>
+          <td>Timestamp</td>
+          <td>No</td>
+          <td>Thời điểm thực hiện tìm kiếm</td>
+        </tr>
+        <tr>
+          <td><strong>SearchContext</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Nội dung thực hiện tìm kiếm</td>
+        </tr>
+        <tr>
+          <td><strong>SearchName</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Tên người tìm kiếm</td>
+        </tr>
+        <tr>
+          <td><strong>SearchCompanyName</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Tên doanh nghiệp tìm kiếm</td>
+        </tr>
+        <tr>
+          <td><strong>SearchPhoneNumber</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Số điện thoại người tìm kiếm</td>
+        </tr>
+        <tr>
+          <td><strong>SearchEmail</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Email sử dụng để tìm kiếm</td>
+        </tr>
+        <tr>
+          <td><strong>SearchType</strong></td>
+          <td>Bit</td>
+          <td>No</td>
+          <td>0: Người bán, 1: người mua</td>
+        </tr>
+        <tr>
+          <td><strong>SearchIsSuccess</strong></td>
+          <td>Bit</td>
+          <td>No</td>
+          <td>Lượt tìm kiếm thành công (0: không, 1: có)</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Sự kiện - Events</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>EventID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>ID sự kiện (tạo tự động)</td>
+        </tr>
+        <tr>
+          <td><strong>EventName</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Tên sự kiện</td>
+        </tr>
+        <tr>
+          <td><strong>EventForm</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Hình thức sự kiện (online, offline)</td>
+        </tr>
+        <tr>
+          <td><strong>EventLocation</strong></td>
+          <td>NVarChar</td>
+          <td>Yes</td>
+          <td>Địa điểm tổ chức sự kiện</td>
+        </tr>
+        <tr>
+          <td><strong>EventAddress</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Địa chỉ nơi tổ chức sự kiện</td>
+        </tr>
+        <tr>
+          <td><strong>EventCity</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Thành phố tổ chức sự kiện</td>
+        </tr>
+        <tr>
+          <td><strong>EventCountry</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Quốc gia tổ chức sự kiện</td>
+        </tr>
+        <tr>
+          <td><strong>EventArea</strong></td>
+          <td>Int</td>
+          <td>Yes</td>
+          <td>Diện tích khu vực sự kiện (m2)</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Linh vực sự kiện - Event Industry</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>EventID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>ID sự kiện (FK: Events.EventID)</td>
+        </tr>
+        <tr>
+          <td><strong>IndustryID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>ID lĩnh vực (FK: Industries.IndustryID)</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Khách tham gia sự kiện - Event Participants</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>ParticipantID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>ID người tham gia sự kiện (tạo tự động)</td>
+        </tr>
+        <tr>
+          <td><strong>EventID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>ID sự kiện (FK: Events.EventID)</td>
+        </tr>
+        <tr>
+          <td><strong>ParticipantFirstname</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Họ và tên đệm người tham gia sự kiện</td>
+        </tr>
+        <tr>
+          <td><strong>ParticipantLatname</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Tên người tham gia sự kiện</td>
+        </tr>
+        <tr>
+          <td><strong>ParticipantCountry</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Quốc gia ngf tham gia sự kiện</td>
+        </tr>
+        <tr>
+          <td><strong>ParticipantCity</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Thành phố người tham gia sự kiện</td>
+        </tr>
+        <tr>
+          <td><strong>IndustryID</strong></td>
+          <td>Int</td>
+          <td>Yes</td>
+          <td>ID lĩnh vực (FK: Industries.IndustryID)</td>
+        </tr>
+        <tr>
+          <td><strong>ParticipantType</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Loại hình người tham gia (tổ chức, cá nhân)</td>
+        </tr>
+        <tr>
+          <td><strong>BusinessTIN</strong></td>
+          <td>VarChar</td>
+          <td>Yes</td>
+          <td>Mã số thuế doanh nghiệp (FK: Business.BusinessTIN)</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Tài trợ sự kiện - Event Sponsors</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>SponsorID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>ID nguồn tài trợ sự kiện (tạo tự động)</td>
+        </tr>
+        <tr>
+          <td><strong>EventID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>ID sự kiện (FK: Events.EventID)</td>
+        </tr>
+        <tr>
+          <td><strong>SponsorOrgTIN</strong></td>
+          <td>VarChar</td>
+          <td>Yes</td>
+          <td>Mã số thuế của doanh nghiệp (Tax Identification Number)</td>
+        </tr>
+        <tr>
+          <td><strong>SponsorOrgName</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Tên tổ chức tài trợ sự kiện</td>
+        </tr>
+        <tr>
+          <td><strong>SposorRole</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Vai trò hỗ trợ sự kiện (diamond, gold, …)</td>
+        </tr>
+        <tr>
+          <td><strong>SponsorValue</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Giá trị hỗ trợ sự kiện</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Chi phí sự kiện - Event Cost</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>EventID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>ID sự kiện (FK: Events.EventID)</td>
+        </tr>
+        <tr>
+          <td><strong>EventLocationCost</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Chi phí thuê địa điểm tổ chức sự kiện</td>
+        </tr>
+        <tr>
+          <td><strong>EventAVCost</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Chi phí ánh sáng, sân khấu, …</td>
+        </tr>
+        <tr>
+          <td><strong>EventPrintCost</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Chi phi in ấn</td>
+        </tr>
+        <tr>
+          <td><strong>EventDecorationCost</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Chi phí trang trí</td>
+        </tr>
+        <tr>
+          <td><strong>EventStuffCost</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Chi phí nhân viên</td>
+        </tr>
+        <tr>
+          <td><strong>EventMeetingCost</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Chi phí thuê phòng họp</td>
+        </tr>
+        <tr>
+          <td><strong>EventFacebookAdsCost</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Chi phí quảng cáo trên Facebook</td>
+        </tr>
+        <tr>
+          <td><strong>EventGoogleAdsCost</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Chi phí quảng cáo trên Google</td>
+        </tr>
+        <tr>
+          <td><strong>EventLinkedinAdsCost</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Chi phí quảng cáo trên Linkedin</td>
+        </tr>
+        <tr>
+          <td><strong>EventZaloAdsCost</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Chi phí quảng cáo trên Zalo</td>
+        </tr>
+        <tr>
+          <td><strong>EventTiktokAdsCost</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Chi phí quảng cáo trên Tiktok</td>
+        </tr>
+        <tr>
+          <td><strong>EventTwitterAdsCost</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Chi phí quảng cáo trên Twitter</td>
+        </tr>
+        <tr>
+          <td><strong>EventNewCost</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Chi phí cho thông tin truyền thông như báo chí, …</td>
+        </tr>
+        <tr>
+          <td><strong>EventFilmCost</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Chi phí quay phim, chụp hình</td>
+        </tr>
+        <tr>
+          <td><strong>EventSpeakerCost</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Chi phí thuê Speaker</td>
+        </tr>
+        <tr>
+          <td><strong>EventOthersCost</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Chi phí cho những hạng mục khác</td>
+        </tr>
+        <tr>
+          <td><strong>EventCostPaid</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Chi phí đã trả</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Nhân viên - Employee</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>EmployeeID</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Mã nhân viên</td>
+        </tr>
+        <tr>
+          <td><strong>EmployeeFirstname</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Họ và tên đệm nhân viên</td>
+        </tr>
+        <tr>
+          <td><strong>EmployeeLastname</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Tên nhân viên</td>
+        </tr>
+        <tr>
+          <td><strong>EmployeeDoB</strong></td>
+          <td>DateTime</td>
+          <td>No</td>
+          <td>Ngày tháng năm sinh của nhân viên</td>
+        </tr>
+        <tr>
+          <td><strong>EmployeeGender</strong></td>
+          <td>Bit</td>
+          <td>No</td>
+          <td>Giới tính (0: nam, 1: nữ)</td>
+        </tr>
+        <tr>
+          <td><strong>EmployeePersonalPhone</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Số điện thoại cá nhân</td>
+        </tr>
+        <tr>
+          <td><strong>EmployeePhone</strong></td>
+          <td>VarChar</td>
+          <td>Yes</td>
+          <td>Số điện thoại thứ 2</td>
+        </tr>
+        <tr>
+          <td><strong>EmployeeHireDate</strong></td>
+          <td>DateTime</td>
+          <td>No</td>
+          <td>Ngày nhân viên bắt đầu làm việc</td>
+        </tr>
+        <tr>
+          <td><strong>EmployeePhoto</strong></td>
+          <td>Image</td>
+          <td>Yes</td>
+          <td>Ảnh đại diện của nhân viên</td>
+        </tr>
+        <tr>
+          <td><strong>ManagerID</strong></td>
+          <td>VarChar</td>
+          <td>Yes</td>
+          <td>Mã người quản lý (FK: Employee.EmployeeID)</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Vị trí nhân viên - EmployeeRole</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>EmployeeID</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Mã nhân viên (FK: Employee.EmployeeID)</td>
+        </tr>
+        <tr>
+          <td><strong>EmployeeDepartment</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Phòng ban làm việc của nhân viên</td>
+        </tr>
+        <tr>
+          <td><strong>PositionID</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Mã vị trí (FK: Position.PositionID)</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Vị trí công việc - Position</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>PositionID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Mã vị trí (tạo tự động)</td>
+        </tr>
+        <tr>
+          <td><strong>PostitionName</strong></td>
+          <td>NVarChar</td>
+          <td>No</td>
+          <td>Tên vị trí</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Bảng lương - Salary Payroll</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>PayrollID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Mã bảng lương (tạo tự động)</td>
+        </tr>
+        <tr>
+          <td><strong>PositionID</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Mã vị trí (FK: Position.PositionID)</td>
+        </tr>
+        <tr>
+          <td><strong>PayrollMin</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Lương thấp nhất</td>
+        </tr>
+        <tr>
+          <td><strong>PayrollMax</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Lương cao nhất</td>
+        </tr>
+        <tr>
+          <td><strong>PayrollWorkHour</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Số giờ làm việc tối thiểu</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Hiệu suất nhân viên - Employee Performance</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>EmployeeID</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Mã nhân viên (FK: Employee.EmployeeID)</td>
+        </tr>
+        <tr>
+          <td><strong>PayrollID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Mã bảng lương (FK: SalaryPayroll.PayrollID)</td>
+        </tr>
+        <tr>
+          <td><strong>EmployeeSalary</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Lương nhân viên</td>
+        </tr>
+        <tr>
+          <td><strong>EmployeeRecieved</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Lương nhân viên đã nhận</td>
+        </tr>
+        <tr>
+          <td><strong>EmployeePerformanceMonth</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Lương nhân viên theo tháng</td>
+        </tr>
+        <tr>
+          <td><strong>EmployeePerformanceYear</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Lương nhân viên theo năm</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Thời gian làm việc của nhân viên - Employee Worktime</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>EmployeeID</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Mã nhân viên (FK: Employee.EmployeeID)</td>
+        </tr>
+        <tr>
+          <td><strong>WorktimeWorkdate</strong></td>
+          <td>DateTime</td>
+          <td>No</td>
+          <td>Ngày làm việc của nhân viên trong tháng</td>
+        </tr>
+        <tr>
+          <td><strong>WotktimeWorkhour</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Số giờ làm việc của nhân viên trong ngày</td>
+        </tr>
+        <tr>
+          <td><strong>WorktimeOTHour</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Số giờ làm thêm của nhân viên trong ngày</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Social Media Performance</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>SMPerformanceID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>ID hiệu suất trên MXH (tạo tự động)</td>
+        </tr>
+        <tr>
+          <td><strong>SMPlatform</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Nền tảng MXH</td>
+        </tr>
+        <tr>
+          <td><strong>SMTimestamp</strong></td>
+          <td>Timestamp</td>
+          <td>No</td>
+          <td>Ngày giờ cập nhật thông tin trên MXH</td>
+        </tr>
+        <tr>
+          <td><strong>SMFollow</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Số lượt follow</td>
+        </tr>
+        <tr>
+          <td><strong>SMLike</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Số lượt thích trang</td>
+        </tr>
+        <tr>
+          <td><strong>SMSubscribe</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Số lượt sub</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Social Media Post</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>FieldName</th>
+          <th>Type</th>
+          <th>Null</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>PostID</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>ID bài đăng (tạo tự động)</td>
+        </tr>
+        <tr>
+          <td><strong>PostTimestamp</strong></td>
+          <td>Timestamp</td>
+          <td>No</td>
+          <td>Ngày giờ đăng bài</td>
+        </tr>
+        <tr>
+          <td><strong>SMPlatform</strong></td>
+          <td>VarChar</td>
+          <td>No</td>
+          <td>Nền tảng MXH</td>
+        </tr>
+        <tr>
+          <td><strong>PostLikes</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Số lượt thích bài đăng</td>
+        </tr>
+        <tr>
+          <td><strong>PostDislikes</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Số lượt không thích bài đăng</td>
+        </tr>
+        <tr>
+          <td><strong>PostComments</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Số lượt bình luận trên bài đăng</td>
+        </tr>
+        <tr>
+          <td><strong>PostShares</strong></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>Số lượt chia sẻ bài đăng</td>
+        </tr>
+      </tbody>
+    </table>
+
+  <h2 id="powerbi">3. Hướng dẫn sử dụng PowerBI</h2>
+  <h3 id="import-sql">3.1. Import dữ liệu từ SQL</h3>
+  <img src=".\public\images\1. Import.png" alt="Sơ đồ tổ chức" style="max-width:100%; height:auto; border: 1px solid #ccc; padding: 5px;">
+  <img src=".\public\images\1.1. SQLImport.png" alt="Sơ đồ tổ chức" style="max-width:100%; height:auto; border: 1px solid #ccc; padding: 5px;">
+  <p>Import: PowerBI lưu trữ dữ liệu trong file PowerBI.</p>
+  <p>DirectQuery: Lấy dữ liệu từ SQL theo thời gian thực.</p>
+
+  <h3 id="giaodien">3.2. Giới thiệu giao diện PowerBI</h3>
+    <img src="./public/images/2. UI.png" alt="Sơ đồ tổ chức" style="max-width:100%; height:auto; border: 1px solid #ccc; padding: 5px; margin-bottom: 16px;">
+
+    <ul>
+    <li><strong>Report view:</strong> Giao diện chính để tạo báo cáo và dashboard bằng cách kéo thả biểu đồ, bảng, và các visual khác từ dữ liệu đã được xử lý.</li>
+    <li><strong>Table view:</strong> Cho phép xem chi tiết các bảng dữ liệu đã được nạp vào Power BI, bao gồm dữ liệu thô và cột đã xử lý.</li>
+    <li><strong>Model view:</strong> Hiển thị mô hình dữ liệu và các mối quan hệ giữa các bảng. Đây là nơi xác định khóa chính – khóa ngoại và tối ưu hóa mô hình dữ liệu.</li>
+    <li><strong>DAX query view:</strong> Cung cấp không gian để viết công thức DAX, tạo measure, column và table để phục vụ phân tích dữ liệu nâng cao.</li>
+    </ul>
+
+    <h4 id="report-view">3.2.1. Report view</h4>
+    <img src="./public/images/2.1. Report view.png" alt="Report view" style="max-width:100%; height:auto; border: 1px solid #ccc; padding: 5px; margin-bottom: 16px;">
+    <p>
+    1. Giao diện dashboard, report.<br>
+    2. Thông tin các bảng, thuộc tính trong bảng, measure, …<br>
+    Các thuộc tính trong bảng: Ngày tháng (có thể tách ra thành năm, quý, tháng, ngày), các cột dữ liệu tính toán, thành phố, …
+    </p>
+    <img src="./public/images/2.1.1. ReportView_Data.png" alt="Report view - Data" style="max-width:100%; height:auto; border: 1px solid #ccc; padding: 5px; margin-bottom: 16px;">
+    <p>
+    Measure là giá trị được tính toán hoặc suy ra để thực hiện các phép tính trên dữ liệu của bạn.<br>
+    Trong danh sách này có những bảng được tạo ra để tính toán, tổng hợp. Những bảng tính và measure chỉ được sử dụng trong file PowerBI này.<br><br>
+
+    3. Visualization: Gồm 3 thẻ<br>
+    <strong>Build Visual:</strong> Xây dựng các KPI, bộ lọc, các bảng, các dạng biểu đồ, …<br>
+    <strong>Format Visual:</strong> Định dạng KPI, bộ lọc, bảng, biểu đồ, …<br>
+    <strong>Analytics:</strong> thêm các yếu tố phân tích trực quan vào biểu đồ.<br><br>
+
+    4. View ngang, dọc.<br>
+    5. Danh sách các trang. Mỗi trang là 1 dashboard/report.
+    </p>
+    <img src="./public/images/2.1.2.ReportView_Tools.png" alt="Report view - Data" style="max-width:100%; height:auto; border: 1px solid #ccc; padding: 5px; margin-bottom: 16px;">
+
+    <h4 id="table-view">3.2.2. Table view</h4>
+    <img src="./public/images/2.2. Table view.png" alt="Report view - Data" style="max-width:100%; height:auto; border: 1px solid #ccc; padding: 5px; margin-bottom: 16px;">
+    <p>Để cập nhật data từ SQL (chế độ import) → Vào thẻ Home, nhấn Refresh.</p>
+    <p>Để chỉnh sửa data → Transform data → Giao diện xuất hiện như hình dưới.</p>
+    <img src="./public/images/2.2.1. Transform Data view.png" alt="Report view - Data" style="max-width:100%; height:auto; border: 1px solid #ccc; padding: 5px; margin-bottom: 16px;">
+    <p>Sau khi chỉnh sửa, nhấn Close & Apply để cập nhật những chỉnh sửa. Trong quá trình chỉnh sửa có thể gặp xung đột về relationship hoặc các ràng buộc khác về dữ liệu, hệ thống sẽ báo lỗi và không thể cập nhật.</p>
+
+    <h4 id="model-view">3.2.3. Model view</h4>
+    <img src="./public/images/2.3. Model view.png" alt="Report view - Data" style="max-width:100%; height:auto; border: 1px solid #ccc; padding: 5px; margin-bottom: 16px;">
+    <p>Để quản lý danh sách các relationship, nhấn vào Manage relationship.</p>
+    <p>Ngoài ra, Model view còn giúp hệ thống lại định dạng dữ liệu và cấu trúc file của các bảng.</p>
+
+    <h3 id="themdt">3.3. Thêm các đối tượng vào PowerBI</h3>
+    <p>Trong phần này, ta sẽ làm việc trên giao diện Report view.</p>
+
+    <h4 id="text">3.3.1. Văn bản</h4>
+    <p>Vào Report view → thẻ Home → Textbox</p>
+    <img src="./public/images/3.1. AddText.png" alt="Report view - Data" style="max-width:100%; height:auto; border: 1px solid #ccc; padding: 5px; margin-bottom: 16px;">
+
+    <h4 id="filter">3.3.2. Bộ lọc</h4>
+    <p>Trong Report view → Visualization → build visual, chọn Slicer</p>
+    <img src="./public/images/3.2. AddSlicer.png" alt="Add Slicer" style="max-width:100%; height:auto; border: 1px solid #ccc; padding: 5px; margin-bottom: 16px;">
+    <p>Để thêm dữ liệu cần lọc (VD: Ngày tháng năm), kéo dữ liệu date vào mục Field (như ví dụ bên dưới)</p>
+    <img src="./public/images/3.2.1.-AddDateToSlicer.gif" alt="Add date to slicer" style="max-width:100%; height:auto; border: 1px solid #ccc; padding: 5px;">
+    <p>
+      Slicer trên report view đã hiển thị thành công bộ lọc về ngày tháng. Tuy nhiên, bộ lọc còn chứa thanh kéo thả.
+      Để định dạng, nhấn vào biểu tượng 
+      <img src="./public/icons/FormatYourVisualIcon.png" alt="Format icon" style="width:16px; height:16px; vertical-align:middle; margin: 0 4px;"> 
+      (Format your visual) ở thanh Visualization, sau đó tắt chức năng slider đi.
+    </p>
+    <img src="./public/images/3.2.2.-FormatSlicer.gif" alt="Format slicer" style="max-width:100%; height:auto; border: 1px solid #ccc; padding: 5px;">
+    
+    <h4 id="table">3.3.3. Bảng</h4>
+    <p>
+    Bảng có 2 loại chính: <strong>Table</strong> và <strong>Matrix</strong>.<br>
+    - <strong>Table</strong>: Thường dành cho việc thống kê dữ liệu (input nhập vào chỉ có tên cột và value).<br>
+    - <strong>Matrix</strong>: Dùng như pivot table trong Excel - dùng để tổng hợp dữ liệu.<br>
+    Chọn biểu tượng <strong>Table</strong> hoặc <strong>Matrix</strong> ở thanh <em>Visualizations</em> để thêm bảng vào report view.
+    </p>
+
+    <div style="display: flex; align-items: flex-start; gap: 16px; margin-top: 10px;">
+    <img src="./public/images/3.3.1. AddTable.png" alt="Add Table" style="max-width: 48%; height: auto; border: 1px solid #ccc; padding: 5px;">
+    <img src="./public/images/3.3.2. AddMatrix.png" alt="Add Matrix" style="max-width: 48%; height: auto; border: 1px solid #ccc; padding: 5px;">
+    </div>
+    <p><strong>Lưu ý:</strong> Việc tạo các bảng mới hay cột mới trong bảng không ảnh hưởng đến data. Dữ liệu thêm chỉ được sử dụng trong một file powerbi duy nhất.</p>
+
+    <h4 id="KPI">3.3.4. KPI</h4>
+    <p>Việc hiển thị KPI (Key Performance Indicator) giúp đo lường được kết quả đã đạt được nhằm so với mục tiêu đã đề ra. Trước khi hiển thị KPI, ta tạo measure để tính toán số liệu.</p>
+    <p>Lấy ví dụ về hiển thị số lượng tài khoản tham gia nền tảng 9mb.vn. Để tạo measure, ở thanh công cụ Home, nhấn vào nút New measure.</p>
+    <img src="./public/images/3.4.1. AddMeasure.png" alt="Add Table" style="max-width: 48%; height: auto; border: 1px solid #ccc; padding: 5px;">
+    <p>Giao diện của Measure hiện ra như sau:</p>
+    <img src="./public/images/3.4.2. MeasureView.png" alt="Add Table" style="max-width: 48%; height: auto; border: 1px solid #ccc; padding: 5px;">
+    <p>Trong đó:</p>
+    <ul>
+        <li><strong>Name:</strong> Tên measure (vế trước dấu = của lệnh DAX).</li>
+        <li><strong>From table:</strong> Bảng gốc của measure đó. Bảng nào được sử dụng thường </li>
+        <li><strong>Format:</strong> Định dạng dữ liệu của measure, bao gồm dữ liệu số, dollar, phần trăm, dữ liệu địa lý, …</li>
+        <li><strong>DAX query cell:</strong> Để gõ lệnh tính toán cho measure đó.</li>
+    </ul>
+    <img src="./public/images/3.4.3. MeasureData.png" alt="Add Table" style="max-width: 48%; height: auto; border: 1px solid #ccc; padding: 5px;">
+    <p>
+        Giải thích lệnh DAX: <code>Total Account = COUNTROWS(Account)</code>
+    </p>
+    <ul>
+        <li><code>Total Account</code>: Tên của measure.</li>
+        <li>Lệnh <code>COUNTROWS</code>: Đếm số lượng hàng trong bảng. Câu lệnh này đếm số lượng hàng trong bảng <code>Account</code></li>
+    </ul>
+    <p>
+        Sau khi đã tạo xong measure, chọn công cụ <strong>KPI</strong> ở thanh <em>Visualization</em> để thêm KPI vào Report view. 
+        Sau đó kéo measure <code>Total Account</code> vào mục <strong>Fields</strong>.
+    </p>
+    <img src="./public/images/3.4.4. AddKPI.png" alt="Add Table" style="max-width: 48%; height: auto; border: 1px solid #ccc; padding: 5px;">
+
+    <h4 id="chart">3.3.5. Biểu đồ</h4>
+    <p>Có nhiều dạng biểu đồ khác nhau như biểu đồ cột, biểu đồ đường, biểu đồ phễu, … Dữ liệu để sử dụng cho biểu đồ thường là bảng khi biểu đồ cần dữ liệu ở trục x và trục y. Cách thêm biểu đồ và kéo thả dữ liệu cũng giống như những phần trước.</p>
+
+    <h4 id="others">3.3.6. Các tính năng khác</h4>
+    <p>...</p>
+
+    <h3 id="dax">3.4. Làm quen với lệnh truy vấn DAX</h3>
+    <p>
+        <a href="https://learn.microsoft.com/en-us/dax/" target="_blank">
+            DAX introduction
+        </a>
+    </p>
+
+    <h3 id="export">3.5. Export dashboard từ PowerBI</h3>
+    <p>
+        Vào File → Export.<br>
+        Chọn dạng file để export: PowerBI Template hoặc PDF.
+    </p>
+
+</body>
+</html>
