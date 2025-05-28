@@ -27,6 +27,10 @@ Suggested future expansion for dashboard features and data collection.
 
 Here are some dashboards made in PowerBI:
 
+![Dashboard Preview](./dashboard/demo/9mb_dashboard-01.png)
+![Dashboard Preview](./dashboard/demo/9mb_dashboard-02.png)
+![Dashboard Preview](./dashboard/demo/9mb_dashboard-03.png)
+![Dashboard Preview](./dashboard/demo/9mb_dashboard-07.png)
 
 ## 📈 Tools & Technologies
 SSMS for database design and querying
